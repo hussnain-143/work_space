@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <title>Work Space | @yield('title')</title>
 </head>
@@ -11,14 +12,42 @@
 
 <!-- Sidebar -->
 <div class="sidebar d-flex flex-column justify-content-between py-3" id="sidebar">
-   <div>
-   <h4 class="text-white text-center">Dashboard</h4>
-    <a href="#">Home</a>
-    <a href="#">Projects</a>
-    <a href="#">Users</a>
+<div class="menu-container">
+    <div class="d-flex justify-content-center">
+        <img src="{{ asset('images/logo.png') }}" alt="" class="logo">
+    </div>
+    <a href="{{ route('workspace.dashboard') }}">Home</a>
+
+    <!-- Projects Dropdown -->
+    <div class="dropdown">
+        <a href="#" class="dropdown-toggle">Projects</a>
+        <div class="dropdown-menu my-bg mx-a">
+            <a href="{{ route('workspace.projects') }}">All Projects</a>
+            @if (Auth::user()->role === 'super_admin')
+            <a href="{{ route('project.form') }}">Create Project</a>
+            @endif
+        </div>
+    </div>
+
+    <!-- Users Dropdown -->
+    <div class="dropdown">
+        <a href="#" class="dropdown-toggle">Users</a>
+        <div class="dropdown-menu">
+            <a href="">All Users</a>
+            @if (Auth::user()->role === 'super_admin')
+            <a href="{{ route('user.form') }}">Add User</a>
+            <a href="">Manage Role</a>
+            @endif
+        </div>
+    </div>
+
     <a href="#">Profile</a>
-    <a href="#">Logout</a>
-   </div>
+    <form action="{{ Route('logout.user') }}" method="POST">
+        @csrf
+        <button class="side-btn" type="submit">Logout</button>
+    </form>
+</div>
+
    <div class="footer text-center py-2 text-white">
        <h5>
            © {{ date('Y') }} Work Space 

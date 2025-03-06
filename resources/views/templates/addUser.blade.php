@@ -7,7 +7,7 @@
         <div class="row justify-content-center">
             <div class="col-md-6">
                 <div class="card shadow-lg">
-                    <div class="card-header my-bg text-white text-center">
+                    <div class="card-header my-bg-dark text-white text-center">
                         <h4>Add User</h4>
                     </div>
                     <div class="card-body">

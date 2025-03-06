@@ -7,7 +7,6 @@
     --background-color: #F9FAFB;
     --border-color: #D1D5DB;  
   }
-
 .background{
     background-color: var(--background-color);
 }
@@ -28,6 +27,11 @@
 }
 .my-bg{
     background-color: var(--accent-color);
+    font-size:64px;
+}
+.my-bg-dark{
+    background-color: var(--primary-color);
+    font-size:64px;
 }
 .logo{
     width: 100px;
@@ -40,13 +44,14 @@ body {
     flex-direction: column;
     min-height: 100vh;
 }
+/* menu */
 .sidebar {
     height: 100vh;
     position: fixed;
     width: 250px;
     background: var(--accent-color);
     padding-top: 20px;
-    box-shadow: 1px 1px 15px rgba(0,0,0,0.5);
+    z-index: 10000;
 }
 .sidebar a {
     color: white;
@@ -55,9 +60,46 @@ body {
     font-size: 24px;
     text-decoration: none;
 }
-.sidebar a:hover {
+.sidebar a:hover, .side-btn:hover  {
     background: var(--accent-hover-color);
 }
+.side-btn{
+    color: white;
+    background: none;
+    border: navajowhite;
+    outline: none;
+    padding: 10px;
+    text-align: left;
+    display: block;
+    font-size: 24px;
+    width: 100%;
+}
+.dropdown {
+    position: relative;
+}
+
+.dropdown-menu {
+    display: none;
+    background: #1B2E40;
+    border-radius: 5px;
+    margin: 5px 20px;
+    width: 200px;
+    position: absolute;
+    left: 0;
+    z-index: 1000;
+}
+
+.dropdown-menu a {
+    padding: 8px;
+    display: block;
+    color: white;
+}
+
+.dropdown-menu a:hover {
+    background: #23A7B3;
+}
+/* End menu */
+/* Content Page */
 .content {
     background-color: var(--background-color);
     margin-left: 250px;

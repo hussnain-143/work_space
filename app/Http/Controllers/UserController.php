@@ -23,7 +23,7 @@ class UserController extends Controller
         // Attempt to log in the user
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
             
-            return redirect()->route('user.create')->with('success', 'Login successful!');
+            return redirect()->route('workspace.dashboard');
         }
     
         return back()->withErrors(['email' => 'Invalid credentials.'])->onlyInput('email');
@@ -65,7 +65,7 @@ class UserController extends Controller
             'role' => $request->role,
         ]);
     
-        return redirect()->route('user.create')->with('success','New User Added Successfully');
+        return redirect()->route('user.form')->with('success','New User Added Successfully');
     }
 
     /**
@@ -98,5 +98,14 @@ class UserController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    /**
+     * Logout
+     */
+    public function logout(Request $request)
+    {
+        Auth::logout();
+        return redirect()-> route('login');
     }
 }
