@@ -23,4 +23,22 @@ public function projects()
 
     return view('templates.projects');
 }
+
+public function users()
+{
+    if (!Auth::check()) {
+        return redirect()->route('login');
+    }
+
+    return view('templates.users');
+}
+public function profile()
+{
+    if (!Auth::check()) {
+        return redirect()->route('login');
+    }
+
+    return view('templates.profile');
+}
+
 }

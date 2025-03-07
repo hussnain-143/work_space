@@ -24,6 +24,14 @@ Route::controller(DashboardController::class)
     Route::get('/projects', 'projects')
         ->middleware('auth')
         ->name('workspace.projects');
+    // User Page
+    Route::get('/users', 'users')
+        ->middleware('auth')
+        ->name('workspace.users');
+    // Profile Page
+    Route::get('/profile', 'profile')
+        ->middleware('auth')
+        ->name('workspace.profile');
 
 });
 
@@ -41,11 +49,18 @@ Route::controller(UserController::class)
         // User login
         Route::post('/login', 'login')
             ->name('login.user');
-        // User login
+        // User Edit Form 
+        Route::get('/user/{id}/edit', 'edit')
+            ->name('user.edit');
+        // User Update
+        Route::put('/user/{id}', 'update')
+            ->name('user.update');
+        // User logout
         Route::post('/logout', 'logout')
             ->middleware('auth')
             ->name('logout.user');
 });
+// Project Controller Routes
 Route::controller(ProjectController::class)
 ->group(function(){
     //Add Project form
