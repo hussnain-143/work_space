@@ -7,7 +7,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class ProjectController extends Controller
-{
+{   
+
+    /**
+     * Summary of showForm
+     * @return mixed|\Illuminate\Contracts\View\View|\Illuminate\Http\RedirectResponse
+     */
     public function showForm()
     {
         if (!Auth::check()) {
@@ -20,6 +25,11 @@ class ProjectController extends Controller
         return view('templates.CreateProject');
     }
 
+    /**
+     * Summary of saveProject
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function saveProject(Request $request){
 
         $request->validate([

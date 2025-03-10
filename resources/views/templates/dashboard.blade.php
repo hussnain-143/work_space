@@ -19,7 +19,7 @@
                                         <div class="d-flex justify-content-between align-items-center">
                                             <div>
                                                 <h5 class="fw-bold">Total Projects</h5>
-                                                <h2 class="fw-bolder">10</h2>
+                                                <h2 class="fw-bolder">{{ $projects }}</h2>
                                             </div>
                                             <i class="bi bi-kanban fa-3x neumorphic-hover"></i>
                                         </div>
@@ -33,7 +33,7 @@
                                         <div class="d-flex justify-content-between align-items-center">
                                             <div>
                                                 <h5 class="fw-bold">Total Users</h5>
-                                                <h2 class="fw-bolder">10</h2>
+                                                <h2 class="fw-bolder">{{ $total_user }}</h2>
                                             </div>
                                             <i class="bi bi-people fa-3x neumorphic-hover"></i>
                                         </div>
@@ -60,8 +60,8 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
     <script>
-    var totalProjects = 20;
-    var completedProjects = 10;
+    var totalProjects = {{ $projects }};
+    var completedProjects = {{ $complete_projects }};
     var pendingProjects = totalProjects - completedProjects;
 
     var ctx = document.getElementById('projectChart').getContext('2d');

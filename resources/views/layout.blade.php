@@ -33,15 +33,14 @@
     <div class="dropdown">
         <a href="#" class="dropdown-toggle">Users</a>
         <div class="dropdown-menu">
-            <a href="">All Users</a>
+            <a href="{{ route('workspace.users') }}">All Users</a>
             @if (Auth::user()->role === 'super_admin')
             <a href="{{ route('user.form') }}">Add User</a>
-            <a href="">Manage Role</a>
             @endif
         </div>
     </div>
 
-    <a href="#">Profile</a>
+    <a href="{{ route('workspace.profile') }}">Profile</a>
     <form action="{{ Route('logout.user') }}" method="POST">
         @csrf
         <button class="side-btn" type="submit">Logout</button>

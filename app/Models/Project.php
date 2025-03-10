@@ -12,5 +12,15 @@ class Project extends Model
     protected $guarded = [];
 
     public $timestamps = false;
+
+    public function getNameAttribute($value){
+        return ucfirst($value);
+    }
+
+    public function users(){
+        return $this->belongsToMany(User::class,'user_projects');
+    }
+
+
 }
 
