@@ -13,35 +13,33 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td><span>Name</span></td>
-                    <td><span>emal@g.c</span></td>
-                    <td><span>1289</span></td>
-                    <td>
-                        <a href="" class="btn btn-sm text-white bg-warning">Update</a>
-                        <form action="" method="POST" style="display:inline;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-sm text-white bg-danger">Delete</button>
-                        </form>
-                    </td>
-                </tr>
-                <tr>
-                    <td><span>Name</span></td>
-                    <td><span>emal@g.c</span></td>
-                    <td><span>1289</span></td>
-                    <td>
-                        <a href="" class="btn btn-sm text-white bg-warning">Update</a>
-                        <form action="" method="POST" style="display:inline;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-sm text-white bg-danger">Delete</button>
-                        </form>
-                    </td>
-                </tr>
+                @if ($employees->isEmpty())
                 <tr>
                     <td colspan="6" class="text-center">No Employee available.</td>
                 </tr>
+                @else
+                @foreach ($employees as $employee )
+                
+                <tr>
+
+                    <td><span>{{ $employee->name }}</span></td>
+                    <td><span>{{ $employee->email }}</span></td>
+                    <td><span>{{ $employee->phone }}</span></td>
+                    @if (Auth::user()->role =='super_admin')
+                    
+                    <td>
+                        <a href="{{ route('user.edit' , $employee->id) }}" class="btn btn-sm text-white bg-warning">Update</a>
+                        <form action="{{ route('delete.user' , $employee->id) }}" method="POST" style="display:inline;">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-sm text-white bg-danger">Delete</button>
+                        </form>
+                    </td>
+                    @endif
+                </tr>
+                @endforeach
+                @endif
+                
             </tbody>
         </table>
     </div>

@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
-
+    
     /**
      * Login User
      */
@@ -91,16 +91,72 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $user = User::findOrFail($id); // Use findOrFail() to throw 404 if not found
+        // dd($request->all());
+    
+        // ✅ Validation
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email,' . $user->id,
+            'password' => 'nullable|min:5|confirmed', // Nullable means not required
+            'phone' => 'required|digits:11|numeric',
+        ]);
+    
+        // ✅ Handle Image Upload (only if a new image is uploaded)
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = $id . '.png';
+            $image->move(public_path('images'), $imageName);
+            $user->image = $imageName;
+        }
+    
+        // ✅ Update User Data
+        $user->name = $request->name;
+        $user->email = $request->email;
+    
+        // ✅ Update Password (only if provided & hashed)
+        if (!empty($request->password)) {
+            $user->password = $request->password;
+        }
+    
+        $user->phone = $request->phone;
+        $user->role = $request->role ?? $user->role; 
+        
+        $user->save();
+
+
+    
+        // ✅ Redirect back with success message
+        return redirect()->route('user.edit', $user->id)->with('success', 'User updated successfully!');
     }
+    
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
-    {
-        //
+{
+    // Ensure the user is authenticated and is a super admin
+    if (Auth::check() && Auth::user()->role === 'super_admin') {
+        
+        // Find the user by ID
+        $user = User::find($id);
+
+        // Check if user exists
+        if (!$user) {
+            return redirect()->back();
+        }
+
+        // Delete the user
+        $user->delete();
+
+        // Redirect back with success message
+        return redirect()->route('workspace.users');
     }
+
+    // Redirect unauthorized users
+    return redirect()->route('login');
+}
 
     /**
      * Logout

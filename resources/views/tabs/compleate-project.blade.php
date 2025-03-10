@@ -1,5 +1,5 @@
 <div class="container mt-4">
-    <h4 class="text-center main-heading">Pending Projects</h4>
+    <h4 class="text-center main-heading">Complete Projects</h4>
     <div class="table-responsive">
         <table class="table table-bordered table-striped">
             <thead >
@@ -11,21 +11,24 @@
                 </tr>
             </thead>
             <tbody>
+                @if ( $complete_projects->isEmpty())
                     <tr>
-                        <td><span >Project Name</span></td>
-                        <td><span >define the some text</span></td>
-                        <td><span >define</span> | <span >define</span></td>
-                        <td><span class="badge bg-success">Pending</span></td>
+                        <td colspan="6" class="text-center">No Complete projects available.</td>
                     </tr>
+                @else
+                    @foreach ( $complete_projects as $complete)
                     <tr>
-                        <td><span >Project Name</span></td>
-                        <td><span >define the some text</span></td>
-                        <td><span class="badge bg-danger">Pending</span></td>
-                        <td><span class="badge bg-danger">Pending</span></td>
+                        <td><span >{{ $complete->name }}</span></td>
+                        <td><span >{{ $complete->description }}</span></td>
+                        <td> 
+                                @foreach ($complete->users as $user )
+                                    <span>{{ $user->name }}</span> | 
+                                    @endforeach
+                                </td>
+                        <td><span class="badge bg-success">{{ $complete->status }}</span></td>
                     </tr>
-                    <tr>
-                        <td colspan="6" class="text-center">No pending projects available.</td>
-                    </tr>
+                    @endforeach
+                @endif
             </tbody>
         </table>
     </div>

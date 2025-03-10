@@ -13,35 +13,31 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td><span>Name</span></td>
-                    <td><span>emal@g.c</span></td>
-                    <td><span>1289</span></td>
-                    <td>
-                        <a href="" class="btn btn-sm text-white bg-warning">Update</a>
-                        <form action="" method="POST" style="display:inline;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-sm text-white bg-danger">Delete</button>
-                        </form>
-                    </td>
-                </tr>
-                <tr>
-                    <td><span>Name</span></td>
-                    <td><span>emal@g.c</span></td>
-                    <td><span>1289</span></td>
-                    <td>
-                        <a href="" class="btn btn-sm text-white bg-warning">Update</a>
-                        <form action="" method="POST" style="display:inline;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-sm text-white bg-danger">Delete</button>
-                        </form>
-                    </td>
-                </tr>
+                @if ($managers->isEmpty())
                 <tr>
                     <td colspan="6" class="text-center">No Manager available.</td>
                 </tr>
+                @else
+
+                @foreach ($managers as $manager )
+                <tr>
+                    <td><span>{{ $manager->name }}</span></td>
+                    <td><span>{{ $manager->email }}</span></td>
+                    <td><span>{{ $manager->phone }}</span></td>
+                    @if (Auth::user()->role =='super_admin')
+                    
+                    <td>
+                        <a href="{{ route('user.edit', $manager->id) }}" class="btn btn-sm text-white bg-warning">Update</a>
+                        <form action="{{ route('delete.user',$manager->id) }}" method="POST" style="display:inline;">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-sm text-white bg-danger">Delete</button>
+                        </form>
+                    </td>
+                    @endif
+                </tr>
+                @endforeach
+                @endif
             </tbody>
         </table>
     </div>

@@ -26,7 +26,7 @@
                                 </ul>
                             </div>
                         @endif
-                        <form action="{{ route('user.update', $user->id) }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('update.user', $user->id) }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
 
@@ -52,12 +52,13 @@
                             @if (Auth::user()->role == 'super_admin')
                             
                             <!-- Role Selection -->
-                            <div class="mb-3">
+                            <div class="mb-3" >
                                 <label for="role" class="form-label">Role</label>
                                 <select class="form-control @error('role') is-invalid @enderror" id="role" name="role">
                                     <option value="">Select Role</option>
                                     <option value="manager" {{ $user->role == 'manager' ? 'selected' : '' }}>Manager</option>
                                     <option value="employee" {{ $user->role == 'employee' ? 'selected' : '' }}>Employee</option>
+                                    <option value="super_admin" {{ $user->role == 'super_admin' ? 'selected' : '' }}>Super Admin</option>
                                 </select>
                             </div>
                             @endif
@@ -83,8 +84,8 @@
                             <div class="mb-3">
                                 <label for="profile_picture" class="form-label">Profile Picture</label>
                                 <input type="file" class="form-control @error('profile_picture') is-invalid @enderror" id="profile_picture"
-                                    name="profile_picture">
-                                @error('profile_picture')
+                                    name="image">
+                                @error('image')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
